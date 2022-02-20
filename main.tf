@@ -56,6 +56,16 @@ resource "aws_security_group" "nfproxy" {
     cidr_blocks = [join("/", [var.proxy_destination_address, 32])]
   }
 
+  lifecycle {
+    # We reference the security group in the instance block
+    create_before_destroy = true
+  }
+
+  timeouts {
+    create = "3m"
+    delete = "3m"
+  }
+
   tags = local.common_tags
 }
 
