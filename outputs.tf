@@ -1,7 +1,7 @@
-output "nfproxy_address" {
-  description = "Instance IPs and hostname"
+output "nfproxy_eip_address" {
+  description = "Elastic IP and hostname"
   value = {
-    "public_ip"  = aws_instance.nfproxy.public_ip
-    "public_dns" = aws_instance.nfproxy.public_dns
+    "public_ip"  = aws_eip.nfproxy.public_ip
+    "public_dns" = aws_eip.nfproxy.public_dns
   }
 }

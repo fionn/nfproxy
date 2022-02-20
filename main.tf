@@ -89,6 +89,11 @@ data "aws_ami" "fedora" {
   }
 }
 
+resource "aws_eip" "nfproxy" {
+  instance = aws_instance.nfproxy.id
+  tags     = local.common_tags
+}
+
 data "cloudinit_config" "nfproxy" {
   gzip          = false
   base64_encode = false
