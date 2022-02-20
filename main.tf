@@ -11,7 +11,7 @@ locals {
 }
 
 resource "aws_security_group" "nfproxy" {
-  name = "strict-ingress-and-all-egress"
+  name = "nfproxy"
 
   ingress {
     description      = "Allow pings"
@@ -41,24 +41,19 @@ resource "aws_security_group" "nfproxy" {
   }
 
   ingress {
-    # TODO: restrict
-    description      = "Inbound traffic to proxy"
-    from_port        = 0
-    to_port          = 0
-    protocol         = -1
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    description = "Inbound traffic to proxy"
+    from_port   = var.proxy_source_port
+    to_port     = var.proxy_source_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    # TODO: reduce these CIDR blocks
-    # TODO: restrict
-    description      = "Outbound traffic to proxy"
-    from_port        = 0
-    to_port          = 0
-    protocol         = -1
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    description = "Outbound traffic to proxy"
+    from_port   = var.proxy_destination_port
+    to_port     = var.proxy_destination_port
+    protocol    = "tcp"
+    cidr_blocks = [join("/", [var.proxy_destination_address, 32])]
   }
 
   tags = local.common_tags
