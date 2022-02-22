@@ -114,12 +114,12 @@ resource "aws_instance" "nfproxy" {
   instance_type          = "t2.micro" # Needs to be greater than t2.nano.
   user_data              = data.cloudinit_config.nfproxy.rendered
   vpc_security_group_ids = [aws_security_group.nfproxy.id]
-  key_name               = aws_key_pair.local.key_name
+  key_name               = aws_key_pair.nfproxy.key_name
   tags                   = merge(local.common_tags, { "Name" = "nfproxy" })
 }
 
-resource "aws_key_pair" "local" {
-  key_name   = "local_key"
+resource "aws_key_pair" "nfproxy" {
+  key_name   = "nfproxy_local_key"
   public_key = file("~/.ssh/id_ed25519.pub")
   tags       = local.common_tags
 }
