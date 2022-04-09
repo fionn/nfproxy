@@ -105,7 +105,7 @@ data "cloudinit_config" "nfproxy" {
 
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.root}/data/init.yaml", local.template_map)
+    content      = templatefile("${path.root}/data/init.yml", local.template_map)
   }
 }
 

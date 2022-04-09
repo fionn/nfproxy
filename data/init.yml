@@ -4,13 +4,11 @@ packages:
   - nftables
   - nc
 
-runcmd:
-  - [ mv, /etc/sysconfig/nftables.conf, /etc/sysconfig/nftables.conf.backup ]
-
 write_files:
   - path: /etc/sysctl.d/95-ip-forwarding.conf
     content: net.ipv4.ip_forward=1
     permissions: "0644"
+
   - path: /etc/sysconfig/nftables.conf
     content: |
       #!/usr/sbin/nft -f
@@ -28,6 +26,7 @@ write_files:
           masquerade
         }
       }
+
     permissions: "0600"
 
 runcmd:
