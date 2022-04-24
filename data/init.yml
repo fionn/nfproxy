@@ -23,7 +23,7 @@ write_files:
 
         chain postrouting {
           type nat hook postrouting priority srcnat; policy accept;
-          masquerade
+          meta oif != lo masquerade
         }
       }
 
