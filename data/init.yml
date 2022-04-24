@@ -27,7 +27,7 @@ write_files:
         }
       }
 
-    permissions: "0600"
+    permissions: "0644"
 
 runcmd:
   - [ sysctl, -p, /etc/sysctl.d/95-ip-forwarding.conf ]
